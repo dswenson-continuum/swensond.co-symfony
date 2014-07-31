@@ -1,0 +1,9 @@
+david_web_homepage:
+    path:     /
+    defaults: { _controller: DavidWebBundle:Default:index }
+david_web_about:
+    path:     /about
+    defaults: { _controller: DavidWebBundle:Default:about }
+david_web_contact:
+    path:     /contact
+    defaults: { _controller: DavidWebBundle:Default:contact }

@@ -1,0 +1,7 @@
+parameters:
+#    david_math.example.class: David\MathBundle\Example
+
+services:
+#    david_math.example:
+#        class: %david_math.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

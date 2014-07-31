@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>swensond.co</title>
+    {% stylesheets '@DavidWebBundle/Resources/public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="logo">
+            <h1>swensond.co</h1>
+        </div>
+        <div id="main">
+            <div id="menu">
+                <ul>
+                    <li>
+                        <a href="{{ path('david_web_homepage') }}" {% if app.request.get('_route') == 'david_web_homepage' %} class="active" {% endif %}>home</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('david_web_about') }}" {% if app.request.get('_route') == 'david_web_about' %} class="active" {% endif %}>about</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('_view_deck') }}">projects</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('david_web_contact') }}" {% if app.request.get('_route') == 'david_web_contact' %} class="active" {% endif %}>contact</a>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            {% if app.request.get('_route') == 'david_web_homepage' %}
+            <div id="feature">
+                <div id="feature-color"></div>
+                <p>football at fenway LFC vs AS Roma</p>
+            </div>
+            {% endif %}
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div id="footer">
+                <p>copyright 2014 swensond.co</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+@import url(http://fonts.googleapis.com/css?family=Abel|Open+Sans);
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Open Sans', sans-serif;
+}
+body{
+    background-image: url(http://swensond.co/519061.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#wrapper{
+    margin: 0 auto;
+    width: 1000px;
+}
+#logo{
+    height: 250px;
+    text-align: center;
+}
+#logo h1{
+    font-family: 'Abel', sans-serif;
+    font-size:114px;
+    color: #ffffff;
+    line-height: 250px;
+}
+#main{
+    
+}
+#menu{
+    width: 1000px;
+    height:40px;
+    background: #f0f0f1;
+    border-top-right-radius:10px;
+    border-bottom: 1px solid #b2b2b2;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.23);
+}
+#menu ul{
+    list-style: none;
+}
+#menu ul li{
+    float:left;
+}
+#menu ul li a{
+    display: block;
+    color: #000000;
+    font-variant: small-caps;
+    font-size: 30px;
+    line-height: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: 1px solid #d1d1d1;
+    text-decoration: none;
+}
+#menu ul li:last-child{
+    border-right: 1px solid #d1d1d1;
+}
+#menu ul li a:hover{
+    background: #fbfbfb;
+}
+#menu ul li a.active{
+    background: #FFFFFF;
+}
+#feature{
+    box-shadow: 0px 0px 5px rgba(0,0,0,.23);
+    background-image: url(http://swensond.co/football_fenway.jpg);
+    background-repeat: no-repeat;
+    height: 250px;
+    border-bottom: 1px solid 
+}
+#feature-color{
+    width: 1000px;
+    height: 250px;
+    background: rgba(83,56,185,.5);
+}
+#feature p{
+    position: absolute;
+    margin-top:-50px;
+    width: 1000px;
+    height:50px;
+    background: rgba(0,0,0,.5);
+    color: #ffffff;
+    text-indent: 50px;
+    line-height: 50px;
+}
+#content{
+    box-shadow: 0px 0px 5px rgba(0,0,0,.23);
+    background: #ffffff;
+}
+#footer{
+    height: 50px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.23);
+    background: #ededed;
+    border-top: 1px solid #aaaaaa;
+}
+#footer{
+    margin-bottom:50px;
+    line-height: 50px;
+    text-indent: 25px;
+    font-size: 20px;
+    color: #898888;
+}
+.clear{
+    clear: both;
+}

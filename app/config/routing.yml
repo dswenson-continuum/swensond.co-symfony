@@ -1,0 +1,8 @@
+david_web:
+    resource: "@DavidWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
+david_math:
+    resource: "@DavidMathBundle/Resources/config/routing.yml"
+    prefix:   /
+

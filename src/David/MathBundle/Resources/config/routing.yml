@@ -1,0 +1,14 @@
+_view_deck:
+    path:     /math/deck/{page}
+    defaults: { _controller:DavidMathBundle:Default:index, page: 1 }
+_create:
+    path:     /math/Player/Create
+    defaults: { _controller: DavidMathBundle:Player:Create }
+
+_delete:
+    path:     /math/Player/Delete
+    defaults: { _controller: DavidMathBundle:Player:Delete }
+
+_setup:
+    path:     /math/Player/Setup
+    defaults: { _controller: DavidMathBundle:Player:Setup }
