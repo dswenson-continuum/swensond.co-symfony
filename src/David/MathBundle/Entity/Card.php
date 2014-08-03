@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Card
 {
@@ -27,6 +28,12 @@ class Card
      * @ORM\Column(name="Name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var image
+     * @ORM\Column(name="image", type="text")
+     */
+    private $image;
 
     /**
      * @var integer
@@ -121,6 +128,10 @@ class Card
      */
     public function setAttack($attack)
     {
+        //override for balance
+        if($this->cost == 0){
+            $attack = 0;
+        }
         $this->attack = $attack;
 
         return $this;
@@ -180,5 +191,12 @@ class Card
     public function getDescription()
     {
         return $this->description;
+    }
+    public function setImage($url){
+        copy($url, '/home/nexhunter/public_html/tmp/'.str_replace(' ', '', $this->description).'_image.jpg');
+        $this->image = 'http://swensond.co/tmp/'.str_replace(' ', '', $this->description).'_image.jpg';
+    }
+    public function getImage(){
+        return $this->image;
     }
 }

@@ -13,6 +13,7 @@
     {% stylesheets '@DavidMathBundle/Resources/public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 
 </head>
 
@@ -66,17 +67,7 @@
         <!-- Projects Row -->
         <div class="row">
             {% for card in cards[:4] %}
-                <div class="col-md-3 portfolio-item">
-                    <a href="#">
-                        <h3>{{ card.name }}</h3>
-                        <ul>
-                            <li>Cost: {{ card.cost }}</li>
-                            <li>Attack: {{ card.attack }}</li>
-                            <li>Defense: {{ card.defense }}</li>
-                            <li>Description: {{ card.description }}</li>
-                        </ul>
-                    </a>
-                </div>
+                {% include "DavidMathBundle:Default:render_card.html.twig" %}
             {% endfor %}
         </div>
         <!-- /.row -->
@@ -84,34 +75,14 @@
         <!-- Projects Row -->
         <div class="row">
             {% for card in cards[4:4] %}
-                <div class="col-md-3 portfolio-item">
-                    <a href="#">
-                        <h3>{{ card.name }}</h3>
-                        <ul>
-                            <li>Cost: {{ card.cost }}</li>
-                            <li>Attack: {{ card.attack }}</li>
-                            <li>Defense: {{ card.defense }}</li>
-                            <li>Description: {{ card.description }}</li>
-                        </ul>
-                    </a>
-                </div>
+                {% include "DavidMathBundle:Default:render_card.html.twig" %}
             {% endfor %}
         </div>
         <!-- /.row -->
 
         <div class="row">
             {% for card in cards[8:4] %}
-                <div class="col-md-3 portfolio-item">
-                    <a href="#">
-                        <h3>{{ card.name }}</h3>
-                        <ul>
-                            <li>Cost: {{ card.cost }}</li>
-                            <li>Attack: {{ card.attack }}</li>
-                            <li>Defense: {{ card.defense }}</li>
-                            <li>Description: {{ card.description }}</li>
-                        </ul>
-                    </a>
-                </div>
+                {% include "DavidMathBundle:Default:render_card.html.twig" %}
             {% endfor %}
         </div>
         <!-- /.row -->

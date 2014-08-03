@@ -9,16 +9,18 @@ class DefaultController extends Controller
     public function indexAction($page)
     {
         $em = $this->get('doctrine')->getManager();
+        $query = $em->createQuery('SELECT COUNT(c.id) FROM DavidMathBundle:Card c');
+        $total = $query->getSingleScalarResult();
         $data = array();
         $data["page"] = $page;
         $data["perPage"] = 12;
-        $data["totalNumPages"] = ceil(28/$data["perPage"]);
+        $data["totalNumPages"] = ceil($total/$data["perPage"]);
         $data["offset"] = 0;
         if($page > 1)
             $data["offset"] = $data["perPage"] * ($page-1);
         if(28 <= $data["perPage"])
             $page = 1;
-        if($page*$data["perPage"] > 28)
+        if($page*$data["perPage"] > $total)
             $page = $data["totalNumPages"];
         $qry = $em->createQueryBuilder()
             ->select('c')

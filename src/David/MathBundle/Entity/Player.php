@@ -3,53 +3,53 @@
 namespace David\MathBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * Player
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="David\MathBundle\Entity\PlayerRepository")
  */
-class Player
+class Player extends BaseUser
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Name", type="string", length=255)
-     */
-    private $name;
+    protected $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="CreationDate", type="datetime")
      */
-    private $creationDate;
+    protected $creationDate;
 
     /**
      * @var array
      *
      * @ORM\Column(name="Stocks", type="array")
      */
-    private $stocks;
+    protected $stocks;
 
     /**
      * @var array
      *
      * @ORM\Column(name="Deck", type="array")
      */
-    private $deck;
+    protected $deck;
 
-
+    /**
+     * @ORM\PrePersist
+     */
+    public function __setDate(){
+        $this->setCreationDate(new \Datetime());
+    }
     /**
      * Get id
      *
@@ -59,30 +59,7 @@ class Player
     {
         return $this->id;
     }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Player
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
+    
     /**
      * Set creationDate
      *

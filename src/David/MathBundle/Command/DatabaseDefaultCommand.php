@@ -20,7 +20,7 @@ class DatabaseDefaultCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $cards = array();
         for($i=1; $i<=28; $i++){
-            $cards[] = array("name"=>"AutoGenCardTest","cost"=>mt_rand(0, 10),"attack"=>mt_rand(0, 10),"defense"=>mt_rand(0, 10),"description"=>"Autocard ".$i);
+            $cards[] = array("name"=>"AutoGenCardTest","cost"=>mt_rand(0, 10),"attack"=>mt_rand(0, 10),"defense"=>mt_rand(0, 10),"description"=>"Autocard ".$i,"image"=>"http://lorempixel.com/200/200/");
         }
         foreach($cards as $card_array){
             $card = new Card();
