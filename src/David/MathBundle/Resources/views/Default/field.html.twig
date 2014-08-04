@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Math Project</title>
+    {% stylesheets 'bundles/davidmath/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script>
+        function moveAnimate(element, newParent){
+            var oldOffset = element.offset();
+            element.appendTo(newParent);
+            var newOffset = element.offset();
+
+            var temp = element.clone().appendTo('body');
+            temp.css('position', 'absolute')
+                .css('left', oldOffset.left)
+                .css('top', oldOffset.top)
+                .css('zIndex', 1000);
+            element.hide();
+            element.show();
+            temp.remove();
+        }
+        $(function() {
+            $("#reset").on("click", function(e){
+                e.preventDefault();
+                var href = this.href;
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('_hand') }}",
+                    data: {
+                        'hand': 0,
+                        'field': 0,
+                        'turn': 1,
+                        'save': false
+                    },
+                    success: function(data, e){window.location = href;},
+                });
+                return false;
+            });
+            $("#endturn").on("click", function(e){
+                e.preventDefault();
+                var href = this.href;
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('_hand') }}",
+                    data: {
+                        'hand': $("#hand").children().length,
+                        'field': $("#field").children().length,
+                        'turn': {{ page }},
+                        'save': false
+                    },
+                    success: function(data, e){window.location = href;},
+                });
+                return false;
+            });
+            $("#save").on("click", function(e){
+                    e.preventDefault();
+                    var href = this.href;
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('_hand') }}",
+                        data: {
+                            'hand': $("#hand").children().length,
+                            'field': $("#field").children().length,
+                            'turn': {{ page }},
+                            'save': true
+                        },
+                        success: function(data, e){alert("Game saved");},
+                    });
+                    return false;
+                });
+            var field = [];
+            if(localStorage.getItem("size") != 0){
+                var size = localStorage.getItem("size");
+                for(i=1; i<=size; i++){
+                    field.push(localStorage.getItem("field"+i));
+                    moveAnimate($("#"+localStorage.getItem("field"+i)),$("#field"));
+                }
+            }
+            var resource = {{ resource }};
+            var is_dragging = false;
+            var sorting;
+            $("#field, #hand").sortable({
+                connectWith: "#field",
+                cancel:".disabled",
+                placeholder: "selected-option",
+                forcePlaceholderSize: true,
+                helper: "clone",
+                start: function(event, ui) {
+                    is_dragging = true;
+                },
+                beforeStop: function(event, ui){
+                    if($(ui.helper).parent().attr('id') == $(ui.placeholder).parent().attr('id'))
+                        return false;
+                    if($(ui.helper).parent().attr('id') == $(ui.placeholder).parent().attr('id'))
+                        return false;
+                    if(resource - ui.item.data("cost") < 0){
+                        $(this).sortable('cancel');
+                    }
+                },
+                stop: function(event, ui) {
+                    if(is_dragging){
+                        resource = resource - ui.item.data("cost");
+                        for(i=0; i < ui.item.data("cost"); i++)
+                            $("#resource i").eq(0).remove();
+                        field.push(ui.item);
+                        localStorage["size"] = field.length;
+                        console.log("field"+field.length);
+                        console.log(ui.item.data("id"));
+                        localStorage.setItem("field"+field.length, ui.item.data("id"));
+                    }
+                }
+            }).disableSelection();
+            $("#hand").on('mousemove', function(e){
+                if(is_dragging)
+                    console.log();
+            });
+        });
+    </script>
+    <style>
+        body{
+            background: url(http://americanlivewire.com/wp-content/uploads/Sky-Blue-Sky.jpg);
+            background-size: cover;
+        }
+        #hand{
+            background: url(http://benshabtay.com/3qchina1/Background1.jpg);
+            background-size: cover;
+        }
+        #hand, #field {
+            height: 300px;
+            list-style: none;
+        }
+        #hand{
+            position:fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            margin-bottom: 0px;
+        }
+        #hand li, #field li{
+            float: left;
+            background: #ffffff;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            margin:5px;
+            -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">The field</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a id="reset" href="{{ path('_view_deck', {'page': 1}) }}" onmousedown="localStorage.removeItem('size')">End Game</a>
+                    </li>
+                    <li>
+                        <a id="save" href="#">Save Game</a>
+                    </li>
+                    <li>
+                        <a id="endturn" href="{{ path('_view_deck', {'page': page+1}) }}">End Turn</a>
+                    </li>
+                    <li>
+                        <a>Round: {{ page }}</a>
+                    </li>
+                    <li>
+                        <a id="resource">
+                            Resources:
+                            {% for i in 1..resource %}
+                                <i class="glyphicon glyphicon-record"></i>
+                            {% endfor %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Projects Row -->
+        <div class="row">
+            <ul id="field" class="">
+                <li></li>
+            </ul>
+            <div style="clear:both"></div>
+            <ul id="hand" class="">
+                {% for card in cards %}
+                    {% include "DavidMathBundle:Default:render_card.html.twig" %}
+                {% endfor %}
+            </ul>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    {% for card in cards %}
+        {% include "DavidMathBundle:Default:card_modal.html.twig" %}
+    {% endfor %}
+    <!-- /.container -->
+    
+    {% javascripts '@DavidMathBundle/Resources/public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</body>
+
+</html>

@@ -1,23 +1,6 @@
-<div class="col-md-3 portfolio-item">
-    <h3><button data-toggle="modal" data-target="#{{ card.id }}" class="btn btn-link">{{ card.name }}</button></a></h3>
-    <img src="{{ card.image }}">
-</div>
-
-<div class="modal fade" id="{{ card.id }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">{{ card.name }} - Card Details</h4>
-      </div>
-      <div class="modal-body">
-        <ul>
-            <li>Cost: {{ card.cost }}</li>
-            <li>Attack: {{ card.attack }}</li>
-            <li>Defense: {{ card.defense }}</li>
-            <li>Description: {{ card.description }}</li>
-        </ul>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<li id="card-{{ card.id }}" data-id="card-{{ card.id }}" data-cost="{{ card.cost }}" data-attack="{{ card.attack }}" data-defense="{{ card.defense }}">
+    <div class="col-md-3 portfolio-item">
+        <h3><button data-toggle="modal" data-target="#{{ card.id }}" class="btn btn-link">{{ card.name }}</button></a></h3>
+        <img src="{{ card.image }}">
+    </div>
+</li>

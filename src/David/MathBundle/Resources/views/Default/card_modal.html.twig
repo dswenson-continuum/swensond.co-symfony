@@ -1,0 +1,26 @@
+<div class="modal fade" id="{{ card.id }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{{ card.name }} - Card Details</h4>
+            </div>
+            <div class="modal-body">
+                <ul style="list-style:none;">
+                    <li>Cost: {{ card.cost }}</li>
+                    <li>Attack: {% for i in 0..card.attack %}<i class="glyphicon glyphicon-flash"></i>{% endfor %}</li>
+                    <li>Defense: {% for i in 0..card.defense %}<i class="glyphicon glyphicon-heart" style="color:rgb(255,0,0);"></i>{% endfor %}</li>
+                    <li>Description: {{ card.description }}</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">
+                    <i class="glyphicon glyphicon-heart"></i>
+                </button>
+                <button class="btn btn-danger" onmousedown="if($('#card-{{ card.id }}').parent()[0].id == 'field'){$('#card-{{ card.id }}').remove();}" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-trash" style="vertical-align:middle"></i>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
